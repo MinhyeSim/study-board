@@ -1,6 +1,9 @@
 package com.study.board.controller;
 
+import com.study.board.entity.BoardEntity;
+import com.study.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,15 +16,17 @@ import org.springframework.web.bind.annotation.RestController;
 //@RequiredArgsConstructor
 public class BoardController {
 
+    @Autowired
+    private BoardService boardService;
     @GetMapping("/board/write")
     public String boardWriteFrom() {
         return "boardwrite";
     }
 
     @PostMapping("/board/writepro")
-    public String boardWritePro(String title, String content){
-        System.out.println("제목 : " + title);
-        System.out.println("내용 : " + content);
+    public String boardWritePro(BoardEntity boardEntity){
+
+        boardService.write(boardEntity);
 
         return "";
     }
